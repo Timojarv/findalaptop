@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<script>
+var attribute = ['Not important at all', 'Not very important', 'Average', 'Pretty important', 'Extremely important'];
+
+function showNext(object, option){
+  prev = $('#selected').html()
+  $('#selected').html(prev + $("#"+option.id+"-label").html() + ' ' + attribute[option.value] + '<br>')
+  object.style.display = 'None';
+  object.nextElementSibling.style.opacity = '1';
+}
+
+function updateValue(object){
+  $('#' + object.id + '-value').html(attribute[object.value]);
+}
+</script>
+<div class="options-container">
+Your budget is set to: {{ budget }}<br>
+<div id="selected"></div>
+<form>
+{% for option in form %}
+<div class="option" id="{{ option.id }}-container">
+  <div id="{{ option.id }}-label">{{ option.label }}:</div>
+  <br>{{ option(min="0", max="4", value="2", class="option-slider", oninput="updateValue(this)") }}<br>
+  <div id="{{ option.id }}-value" class="option-value"></div>
+  <br><a onclick="showNext(document.getElementById('{{ option.id }}-container'), document.getElementById('{{ option.id }}'))" class="btn-modern modern-smaller">Next</a>
+</div>
+{% endfor %}
+</form>
+</div>
+<script>
+var objectList = document.getElementsByClassName('option-slider');
+for (var i = 0; i < objectList.length; i++){
+  updateValue(objectList[i]);
+}
+</script>
+{% endblock %}
