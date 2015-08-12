@@ -8,3 +8,4 @@ class TestForm(Form):
     screen = IntegerField('Screen', widget=RangeInput())
     mobility = IntegerField('Mobility', widget=RangeInput())
     battery = IntegerField('Battery', widget=RangeInput())
+    sound = IntegerField('Sound quality', widget=RangeInput())

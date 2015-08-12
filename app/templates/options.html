@@ -9,17 +9,33 @@ function showNext(){
   prev = $('#selected').html();
   $('#selected').html(prev + $("#"+option.id+"-label").html() + ' ' + attribute[option.value] + '<br>');
   object.fadeOut(400).removeClass('active').addClass('left');
-  object.next().fadeIn(400).addClass('active');
-}
+  if (object.next('.option').length == 0){
+    $('#options').submit();
+    return 1;
+  };
+  object.next('.option').fadeIn(400).addClass('active');
+  $('.prev-btn').removeClass('disabled');
+};
+
+function showPrev(){
+  object = $('.active');
+  object.fadeOut(400).removeClass('active');
+  object.prev('.option').fadeIn(400).removeClass('left').addClass('active');
+  $('.next-btn').removeClass('disabled');
+  if (object.prev().prev('.option').length == 0){
+    $('.prev-btn').addClass('disabled');
+  };
+};
 
 function updateValue(object){
   $('#' + object.id + '-value').html(attribute[object.value]);
-}
+};
 </script>
 <div id="selected">Your budget is set to: {{ budget }}<br></div>
 <div id="wrapper">
 <div class="options-container">
-<form>
+<form id="options" action="/results" method="POST">
+{{ form.hidden_tag() }}
 {% for option in form %}
 <div class="option" id="{{ option.id }}-container">
   <div id="{{ option.id }}-label">{{ option.label }}:</div>
@@ -29,9 +45,8 @@ function updateValue(object){
 {% endfor %}
 </form>
 <div id="nav">
-<button onclick="showNext()" class="btn-modern next-btn">
-Next
-</button>
+<button onclick="showPrev()" class="btn-modern prev-btn">Back</button>
+<button onclick="showNext()" class="btn-modern next-btn">Confirm</button>
 </div>
 </div>
 </div>
@@ -41,5 +56,7 @@ for (var i = 0; i < objectList.length; i++){
   updateValue(objectList[i]);
 }
 $('.option:eq(1)').show().addClass('active');
+$('.option:eq(0)').remove()
+$('.prev-btn').addClass('disabled')
 </script>
 {% endblock %}
