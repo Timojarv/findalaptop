@@ -1,62 +1,58 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <script>
-var attribute = ['Not important at all', 'Not very important', 'Average', 'Pretty important', 'Extremely important'];
+  var attribute = ["Doesn't matter", 'Not very important', 'Average', 'Pretty important', 'Extremely important'];
 
-function showNext(){
-  object = $('.active');
-  option = object.find($('input'))[0];
-  prev = $('#selected').html();
-  $('#selected').html(prev + $("#"+option.id+"-label").html() + ' ' + attribute[option.value] + '<br>');
-  object.fadeOut(400).removeClass('active').addClass('left');
-  if (object.next('.option').length == 0){
-    $('#options').submit();
-    return 1;
+  function showNext() {
+    object = $('.active');
+    option = object.find($('input'))[0];
+    object.fadeOut(400).removeClass('active').addClass('left');
+    if (object.next('.option').length == 0) {
+      $('#options').submit();
+      return 1;
+    };
+    object.next('.option').fadeIn(400).addClass('active');
+    $('.prev-btn').removeClass('disabled');
   };
-  object.next('.option').fadeIn(400).addClass('active');
-  $('.prev-btn').removeClass('disabled');
-};
 
-function showPrev(){
-  object = $('.active');
-  object.fadeOut(400).removeClass('active');
-  object.prev('.option').fadeIn(400).removeClass('left').addClass('active');
-  $('.next-btn').removeClass('disabled');
-  if (object.prev().prev('.option').length == 0){
-    $('.prev-btn').addClass('disabled');
+  function showPrev() {
+    object = $('.active');
+    object.fadeOut(400).removeClass('active');
+    object.prev('.option').fadeIn(400).removeClass('left').addClass('active');
+    $('.next-btn').removeClass('disabled');
+    if (object.prev().prev('.option').length == 0) {
+      $('.prev-btn').addClass('disabled');
+    };
   };
-};
 
-function updateValue(object){
-  $('#' + object.id + '-value').html(attribute[object.value]);
-};
+  function updateValue(object) {
+    $('#' + object.id + '-value').html(attribute[object.value]);
+  };
 </script>
-<div id="selected">Your budget is set to: {{ budget }}<br></div>
 <div id="wrapper">
-<div class="options-container">
-<form id="options" action="/results" method="POST">
-{{ form.hidden_tag() }}
-{% for option in form %}
-<div class="option" id="{{ option.id }}-container">
-  <div id="{{ option.id }}-label">{{ option.label }}:</div>
-  <br>{{ option(min="0", max="4", value="2", class="option-slider", oninput="updateValue(this)") }}<br>
-  <div id="{{ option.id }}-value" class="option-value"></div>
-</div>
-{% endfor %}
-</form>
-<div id="nav">
-<button onclick="showPrev()" class="btn-modern prev-btn">Back</button>
-<button onclick="showNext()" class="btn-modern next-btn">Confirm</button>
-</div>
-</div>
+  <div class="options-container">
+    <form id="options" action="" method="POST">
+      {{ form.hidden_tag() }} {% for option in form %}
+      <div class="option" id="{{ option.id }}-container">
+        <div id="{{ option.id }}-label">{{ option.label }}:</div>
+        <br>{{ option(min="0", max="4", value="2", class="option-slider", oninput="updateValue(this)") }}
+        <br>
+        <div id="{{ option.id }}-value" class="option-value"></div>
+      </div>
+      {% endfor %}
+    </form>
+    <div id="nav">
+      <button onclick="showPrev()" class="btn-modern prev-btn">Back</button>
+      <button onclick="showNext()" class="btn-modern next-btn">Confirm</button>
+    </div>
+  </div>
 </div>
 <script>
-var objectList = document.getElementsByClassName('option-slider');
-for (var i = 0; i < objectList.length; i++){
-  updateValue(objectList[i]);
-}
-$('.option:eq(1)').show().addClass('active');
-$('.option:eq(0)').remove()
-$('.prev-btn').addClass('disabled')
+  var objectList = document.getElementsByClassName('option-slider');
+  for (var i = 0; i < objectList.length; i++) {
+    updateValue(objectList[i]);
+  }
+  $('.option:eq(1)').show().addClass('active');
+  $('.option:eq(0)').remove()
+  $('.prev-btn').addClass('disabled')
 </script>
 {% endblock %}
