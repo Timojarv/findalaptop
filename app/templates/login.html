@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+<div id='wrapper'>
+  <div class='options-container'>
+    <div id='heading'>
+      Please log in.
+    </div>
+    <form action="" method='POST'>
+      {{ form.hidden_tag() }} {{ form.user(placeholder='Username') }} {{ form.passwd(placeholder='Password') }}
+      <input type='submit' class='btn-modern' value='Login'>
+    </form>
+  </div>
+</div>
+{% endblock %}

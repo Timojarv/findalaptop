@@ -1,0 +1,29 @@
+input[type=text], input[type=password], textarea {
+  -moz-appearance: none;
+  outline: 0px none;
+  border: 1px solid #16a085;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  margin: 0px auto 10px;
+  display: block;
+  text-align: center;
+  font-size: 6vmin;
+  width: 36vmax;
+  font-family: "Roboto", sans-serif;
+  color: #16a085;
+  transition: all 0.25s;
+  font-weight: 300;
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  border: 1px solid #16a085;
+  background-color: #16a085;
+  color: white;
+  width: 42vmax;
+}
+#heading{
+  margin-bottom: 4vmin;
+  font-size: 12vmin
+}
+.btn-modern{
+  width: 36vmax;
+}
