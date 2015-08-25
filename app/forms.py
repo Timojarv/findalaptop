@@ -13,7 +13,7 @@ class ImportanceForm(Form):
 
 class LoginForm(Form):
     user = StringField('Username')
-    passwd = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
 
 class AddForm(Form):
     make = StringField('Make') #Laptop brand
