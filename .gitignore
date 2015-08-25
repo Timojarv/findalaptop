@@ -1,3 +1,4 @@
 flask/
 tmp/
 *.pyc
+app/static/legacy/*
