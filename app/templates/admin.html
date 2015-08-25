@@ -1,20 +1,9 @@
 {% extends 'base.html' %} {% block content %}
-<div id='wrapper'>
-  <div class='options-container'>
-    <div id='heading'>
-      Hello, {{ user.username }}
-    </div>
-    <div class="btn-container">
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-      <a href="{{ url_for('logout') }}" class="btn-modern">Log out</a>
-    </div>
-  </div>
+<div class="container">
+  <h2>
+    Hello, {{ user.username }}
+  </h2>
+    <a href="{{ url_for('logout') }}" class="btn btn-lg btn-default btn-wide btn-danger">Log out</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-lg btn-default btn-wide btn-danger">Log out</a>
 </div>
 {% endblock %}

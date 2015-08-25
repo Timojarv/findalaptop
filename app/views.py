@@ -4,7 +4,10 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from .forms import ImportanceForm, LoginForm
 from .models import User, Laptop
 from .auth import authenticate
+from .log import Logger
 
+logger = Logger()
+logger.setLevel(logger.info)
 
 @lm.user_loader
 def load_user(id):
@@ -45,6 +48,7 @@ def options():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    logger.log('Current user:'+str(g.user))
     if g.user.is_authenticated():
         return render_template('admin.html', user=g.user, extra_css=[])
     return redirect(url_for('login'))
@@ -52,14 +56,19 @@ def admin():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated():
+        logger.log('Redirecting...')
         return redirect(url_for('admin'))
     form = LoginForm()
     if form.validate_on_submit():
+        logger.log('Form validation requested.')
         user = authenticate(form.user.data, form.password.data)
         if user:
             login_user(user, remember=True)
-            redirect(url_for('index'))
+            logger.log('Login succesful')
+            logger.log('User: '+str(g.user))
+            return redirect(url_for('admin'))
         else:
+            logger.log('Authentication failed')
             return redirect(url_for('login'))
     return render_template('login.html', form=form, extra_css=['login'])
 

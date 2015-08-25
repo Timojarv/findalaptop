@@ -1,13 +1,21 @@
 {% extends 'base.html' %} {% block content %}
-<div id='wrapper'>
-  <div class='options-container'>
-    <div id='heading'>
-      Please log in.
+<div class='container'>
+  <form id='form-login' action="" method='POST'>
+    {{ form.hidden_tag() }}
+    <div class="login-form">
+      <h3> Please log in.</h3>
+      <div class="form-group">
+        {{ form.user(placeholder='Username', class='form-control login-field', id='login-name') }}
+        <label class="login-field-icon fui-user" for="login-name"></label>
+      </div>
+
+      <div class="form-group">
+        {{ form.password(placeholder='Password', class='form-control login-field', id='login-pass') }}
+        <label class="login-field-icon fui-lock" for="login-pass"></label>
+      </div>
+
+      <a onclick="$('#form-login').submit()" class="btn btn-primary btn-lg btn-block" href="#">Log in</a>
     </div>
-    <form action="" method='POST'>
-      {{ form.hidden_tag() }} {{ form.user(placeholder='Username') }} {{ form.password(placeholder='Password') }}
-      <input type='submit' class='btn-modern' value='Login'>
-    </form>
-  </div>
+  </form>
 </div>
 {% endblock %}
