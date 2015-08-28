@@ -1,33 +1,19 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
-    <div id="heading">Hi,
-      <br> start by selecting your budget:</div>
-    <br>
-    <form action="{{ url_for('budget') }}" method="POST">
-      <div id="slider"></div>
-      <span class="budget-slider-value"></span>
-      <input type="submit" value="Confirm" class="btn-modern">
-    </form>
-    <script>
-      var value = $('.budget-slider-value');
-
-      var $slider = $("#slider");
-      if ($slider.length > 0) {
-        $slider.slider({
-          min: 1,
-          max: 5,
-          value: 3,
-          orientation: "horizontal",
-          range: "min",
-          slide: refreshValue,
-          change: refreshValue
-        }).addSliderSegments($slider.slider("option").max);
-      }
-
-      function refreshValue(){
-        value.html($slider.slider('value') + "€");
-      }
-      refreshValue();
-    </script>
-  </div>
+  <h3>Hi,</h3>
+  <h3>start by selecting your budget.</h3>
+  <form action="" method="POST">
+    <input type="range" name="budget" min="300" max="2000" value="900" step="50" class="budget-slider">
+    <span class="budget-slider-value"></span>
+    <input type="submit" value="Confirm" class="btn btn-wide btn-primary btn-hg">
+  </form>
+  <script>
+    var range = $('.budget-slider'),
+      value = $('.budget-slider-value');
+    value.html(range.attr('value') + "€");
+    range.on('input', function() {
+      value.html(this.value + "€");
+    });
+  </script>
+</div>
 {% endblock %}

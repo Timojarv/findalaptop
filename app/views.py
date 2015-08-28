@@ -30,7 +30,7 @@ def budget():
     try:
         session['budget'] = request.form['budget']
     except KeyError:
-        return render_template('budget.html', extra_css=[])
+        return render_template('budget.html', extra_css=['budget'])
     return redirect(url_for('options'))
 
 
