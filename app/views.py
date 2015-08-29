@@ -47,11 +47,22 @@ def options():
     return redirect(url_for('budget'))
 
 @app.route('/admin', methods=['GET', 'POST'])
+@login_required
 def admin():
     logger.log('Current user:'+str(g.user))
     if g.user.is_authenticated():
-        return render_template('admin.html', user=g.user, extra_css=[])
+        return redirect(url_for('laptops'))
     return redirect(url_for('login'))
+
+@app.route('/admin/laptops')
+@login_required
+def laptops():
+    return render_template('laptops.html', user=g.user, extra_css=[])
+
+@app.route('/admin/stats')
+@login_required
+def stats():
+    return render_template('stats.html', user=g.user, extra_css=[])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -61,12 +72,17 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         logger.log('Form validation requested.')
+        session['remember_me'] = form.remember_me.data
+        remember_me = False
+        if 'remember_me' in session:
+            remember_me = session['remember_me']
+            session.pop('remember_me', None)
         user = authenticate(form.user.data, form.password.data)
         if user:
-            login_user(user, remember=True)
+            login_user(user, remember=remember_me)
             logger.log('Login succesful')
             logger.log('User: '+str(g.user))
-            return redirect(url_for('admin'))
+            return redirect(url_for('laptops'))
         else:
             logger.log('Authentication failed')
             return redirect(url_for('login'))

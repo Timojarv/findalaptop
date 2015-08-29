@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, IntegerField, PasswordField
+from wtforms import StringField, IntegerField, PasswordField, BooleanField
 from flask.ext.wtf.html5 import RangeInput
 from wtforms.validators import DataRequired
 
@@ -12,8 +12,9 @@ class ImportanceForm(Form):
     battery = IntegerField('Battery', widget=RangeInput())
 
 class LoginForm(Form):
-    user = StringField('Username')
+    user = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('remember_me', default=True)
 
 class AddForm(Form):
     make = StringField('Make') #Laptop brand

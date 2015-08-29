@@ -19,6 +19,12 @@ body {
 h3{
   margin-top: 10px;
 }
+.checkbox-label{
+  vertical-align: middle;
+}
+label{
+  display: inline !important;
+}
 #form-login {
   max-width: 500px;
   padding: 15px;
