@@ -1,11 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
-  <h3>Hi,</h3>
-  <h3>start by selecting your budget.</h3>
-  <form action="" method="POST">
+  <form action="" method="POST" id="form-budget">
+    <h3>Hi,<br>start by selecting your budget.</h3>
     <input type="range" name="budget" min="300" max="2000" value="900" step="50" class="budget-slider">
-    <span class="budget-slider-value"></span>
-    <input type="submit" value="Confirm" class="btn btn-wide btn-primary btn-hg">
+    <h3 class="budget-slider-value"></h3>
+    <input type="submit" value="Confirm" class="btn btn-wide btn-primary btn-lg">
   </form>
   <script>
     var range = $('.budget-slider'),

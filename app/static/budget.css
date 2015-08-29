@@ -1,25 +1,40 @@
-body{
+html {
+  background: url('/static/lake.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+body {
   padding-top: 70px;
   padding-bottom: 40px;
   text-align: center;
+  background-color: rgba(52, 152, 219, 0.6);
 }
-
-.container{
+.container {
   position: absolute;
-  margin: -176px auto auto auto;
-  top: 50%;
+  margin: auto auto -134px auto;
+  bottom: 50%;
   left: 0;
   right: 0;
   text-align: center;
 }
-
-.budget-slider-value{
+#form-budget {
+  position: relative;
+  padding: 24px 23px 20px;
+  background-color: rgba(237, 239, 241, 0.6);
+  border-radius: 6px;
+  margin-bottom: 0px;
+}
+.budget-slider-value {
   display: block;
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
-#slider{
+#slider {
   margin-top: 40px;
   margin-bottom: 40px;
+}
+h3{
+  margin-top: 0px;
 }
