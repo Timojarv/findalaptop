@@ -1,0 +1,28 @@
+{% extends 'admin.html' %} {% block content %}
+<script>
+  $('#nav-users').addClass('active')
+</script>
+<div class="container">
+  <h2>User management</h2>
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="row">
+        {% for account in users %}
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+          <div class="tile">
+            <img src="/static/img/icons/svg/clipboard.svg" alt="User" class="tile-image big-illustration">
+            <h3 class="tile-title">{{ account.username }}</h3>
+            <p>Permissions: {{ account.permissions }}</p>
+            <a class="btn btn-primary btn-large btn-block" href="#">Modify</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+</div>
+
+
+</div>
+{% endblock %}

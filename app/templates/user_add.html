@@ -1,0 +1,32 @@
+{% extends 'admin.html' %} {% block content %}
+<script>
+  $('#nav-users').addClass('active')
+</script>
+<div class="container">
+  <form id='form-add-user' action="" method='POST'>
+    {{ form.hidden_tag() }}
+    <div class="login-form">
+      <h3>Add user</h3>
+      <div class="form-group">
+        {{ form.user(placeholder='Username', class='form-control login-field', id='user-name') }}
+        <label class="login-field-icon fui-user" for="user-name"></label>
+      </div>
+
+      <div class="form-group">
+        {{ form.password(placeholder='Password', class='form-control login-field', id='user-pass') }}
+        <label class="login-field-icon fui-lock" for="user-pass"></label>
+      </div>
+
+      <div class="form-group">
+        {{ form.permissions(placeholder='Permissions', class='form-control login-field', id='user-permissions') }}
+        <label class="login-field-icon fui-gear" for="user-permissions"></label>
+      </div>
+
+      <a onclick="$('#form-add-user').submit()" class="btn btn-primary btn-lg btn-block" href="#">Confirm</a>
+    </div>
+  </form>
+</div>
+
+
+</div>
+{% endblock %}

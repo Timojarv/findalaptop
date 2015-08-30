@@ -18,6 +18,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     pwhash = db.Column(db.String(64))
+    permissions = db.Column(db.Integer, index=True)
 
     def is_authenticated(self):
         return True

@@ -16,6 +16,11 @@ class LoginForm(Form):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('remember_me', default=True)
 
+class UserAddForm(Form):
+    user = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    permissions = IntegerField('permissions', validators=[DataRequired()])
+
 class AddForm(Form):
     make = StringField('Make') #Laptop brand
     model = StringField('Model') #Model of the laptop
