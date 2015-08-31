@@ -4,26 +4,30 @@
     {{ form.hidden_tag() }}
     <div class="login-form">
       <h3> Please log in.</h3>
-      <div class="form-group">
-        {{ form.user(placeholder='Username', class='form-control login-field', id='login-name') }}
-        <label class="login-field-icon fui-user" for="login-name"></label>
-      </div>
+      {% include 'user_field.html' %}
 
-      <div class="form-group">
-        {{ form.password(placeholder='Password', class='form-control login-field', id='login-pass') }}
-        <label class="login-field-icon fui-lock" for="login-pass"></label>
-      </div>
+      {% include 'password_field.html' %}
 
       <div class="form-group">
         <label class="checkbox" for="remember_me">
           {{ form.remember_me(**{'data-toggle':'checkbox'}) }}
         </label><span class="checkbox-label">Remember me?</span>
       </div>
-      <a onclick="$('#form-login').submit()" class="btn btn-primary btn-lg btn-block" href="#">Log in</a>
+      <input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block">
     </div>
   </form>
 </div>
 <script>
 $(':checkbox').radiocheck();
+{% for error in form.password.errors %}
+  $('#login-pass').attr('data-title', '{{ error}}')
+  $('#login-pass').tooltip('show')
+  $('#login-pass').focus(function(){ $('#login-pass').tooltip('hide').parent().removeClass('has-error');})
+{% endfor %}
+{% for error in form.user.errors %}
+  $('#login-name').attr('data-title', '{{ error}}')
+  $('#login-name').tooltip('show')
+  $('#login-name').focus(function(){ $('#login-name').tooltip('hide').parent().removeClass('has-error');})
+{% endfor %}
 </script>
 {% endblock %}

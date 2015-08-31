@@ -1,0 +1,14 @@
+<form id='form-add-user' action="" method='POST'>
+  {{ form.hidden_tag() }}
+  <div class="login-form">
+    <h3>Add user</h3>
+    {% include 'user_field.html' %}
+
+    {% include 'password_field.html' %}
+
+    {% include 'permissions_field.html' %}
+
+    <a onclick="$('#form-add-user').submit()" class="btn btn-primary btn-lg btn-block" href="#">Confirm</a>
+  </div>
+</form>
+<script>$('input').attr('autocomplete', 'off')</script>

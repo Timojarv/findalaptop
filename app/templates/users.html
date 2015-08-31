@@ -13,7 +13,7 @@
             <img src="/static/img/icons/svg/clipboard.svg" alt="User" class="tile-image big-illustration">
             <h3 class="tile-title">{{ account.username }}</h3>
             <p>Permissions: {{ account.permissions }}</p>
-            <a class="btn btn-primary btn-large btn-block" href="#">Modify</a>
+            <a class="btn btn-primary btn-large btn-block" href="users/{{ account.username}}">Modify</a>
           </div>
         </div>
         {% endfor %}
