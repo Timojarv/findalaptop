@@ -1,0 +1,23 @@
+<form id='form-add-laptop' action="" method='POST'>
+  {{ form.hidden_tag() }}
+  <div class="login-form">
+    <h3>Add laptop</h3>
+    {% for field in form %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+
+      {% if field.type == 'BooleanField' %}
+        {{ field.label(style='margin-right: 30px; font-size: 1em;') }}
+      {% endif %}
+
+      {{ field(placeholder=field.label.text, class='form-control', **{'data-placement':"right", 'data-trigger':"manual"}) }}
+
+    </div>
+    {% endfor %}
+    <script>
+      $('.form-group').first().remove()
+      $(':checkbox').attr('data-toggle', 'switch')
+      $(':checkbox').bootstrapSwitch()();
+    </script>
+    <a onclick="$('#form-add-laptop').submit()" class="btn btn-primary btn-lg btn-block" href="#">Confirm</a>
+  </div>
+</form>

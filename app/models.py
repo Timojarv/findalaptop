@@ -1,15 +1,16 @@
 from app import db
 
 class Laptop(db.Model):
+    '''
+    Laptop specs array specification:
+    specs = [0cpuBrand, 1cpuModel, 2ramGB, 3gpuBrand, 4gpuModel, 5ssdGB, 6hddGB, 7odd, 8screenW, 9screenH, 10touch, 11batteryWh, 12batteryTime, 13width, 14length, 15thickness, 16weight]
+    '''
     id = db.Column(db.Integer, primary_key=True) #Unique id for primary key purposes only
-    make = db.Column(db.String(12), index=True) #Laptop brand
+    brand = db.Column(db.String(12), index=True) #Laptop brand
     model = db.Column(db.String(24), index=True) #Model of the laptop
-    specs = db.Column(db.String(128)) #Json array of specs in string form
-    performance = db.Column(db.Integer, index=True) #All the scores are below in integer form
-    screen = db.Column(db.Integer, index=True)
-    sound = db.Column(db.Integer, index=True)
-    mobility = db.Column(db.Integer, index=True)
-    battery = db.Column(db.Integer, index=True)
+    specs = db.Column(db.String(512)) #Json array of specs in string form
+    price = db.Column(db.Integer, index=True)#price of the laptop
+    size = db.Column(db.Integer, index=True)#screen diagonal
 
     def __repr__(self):
         return '<%s %s>' % (self.make, self.model)

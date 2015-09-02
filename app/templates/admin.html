@@ -13,7 +13,7 @@
 
   <link rel="shortcut icon" href="/static/img/favicon.ico">
 
-  <link href="/static/base.css" rel="stylesheet">
+  <link href="/static/base.css?version=1.7" rel="stylesheet">
   {% for css in extra_css %}
     <link href="/static/{{ css }}.css" rel="stylesheet">
   {% endfor %}
@@ -33,7 +33,6 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="/static/js/vendor/video.js"></script>
   <script src="/static/js/flat-ui.min.js"></script>
-
   <!--BEGIN NAVBAR-->
   <div class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container">
@@ -47,13 +46,7 @@
         <ul class="nav navbar-nav">
           <li id="nav-laptops"><a href="{{ url_for('laptops') }}">Laptops</a></li>
           <li id="nav-stats"><a href="{{ url_for('stats') }}">Statistics</a></li>
-          <li id="nav-users" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="{{ url_for('users') }}">Management</a></li>
-              <li><a href="{{ url_for('user_add') }}">Add user</a></li>
-            </ul>
-          </li>
+          <li id="nav-users"><a href="{{ url_for('users') }}">Users</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
@@ -69,6 +62,25 @@
     </div>
   </div>
   <!--END NAVBAR-->
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div id="flash-messages">
+    {% for message in messages %}
+      {% if message == 'msg_type_success' %}
+      <div class="flash success_flash">
+      {% elif message == 'msg_type_warning' %}
+        <div class="flash warning_flash">
+      {% elif message == 'msg_type_info' %}
+        <div class="flash info_flash">
+      {% else %}
+        <span class="flash_text">{{ message }}</span></div>
+      {% endif %}
+    {% endfor %}
+  </div>
+    {% endif %}
+    {% endwith %}
+
 
   {% block content %} {% endblock %}
   <script>$("select").select2({dropdownCssClass: 'dropdown-inverse'});</script>

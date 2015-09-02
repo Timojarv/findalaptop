@@ -3,7 +3,10 @@
   $('#nav-users').addClass('active')
 </script>
 <div class="container">
-  <h2>User management</h2>
+  <div class="row actions-bar">
+    <h2>User management</h2>
+    <a href="users/add" class="btn btn-lg btn-wide btn-primary">Add user</a>
+  </div>
   <div class="row">
     <div class="col-lg-10">
       <div class="row">
@@ -12,7 +15,7 @@
           <div class="tile">
             <img src="/static/img/icons/svg/clipboard.svg" alt="User" class="tile-image big-illustration">
             <h3 class="tile-title">{{ account.username }}</h3>
-            <p>Permissions: {{ account.permissions }}</p>
+            <p>{{ level[account.permissions-1] }}</p>
             <a class="btn btn-primary btn-large btn-block" href="users/{{ account.username}}">Modify</a>
           </div>
         </div>

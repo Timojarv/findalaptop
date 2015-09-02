@@ -108,3 +108,39 @@ input[type=range]:focus::-ms-track {
 input[type=range]:focus::-moz-range-track {
   background: #1ABC9C;
 }
+
+#flash-messages{
+  float: right;
+  margin: 6px;
+}
+
+.flash{
+  padding: 6px;
+  float: right;
+  border-radius: 6px;
+  border: 3px solid;
+}
+
+.warning_flash{
+  border-color: #c0392b;
+  background-color: rgba(231, 76, 60, 0.4);
+}
+
+.success_flash{
+  border-color: #27ae60;
+  background-color: rgba(46, 204, 113, 0.4);
+}
+
+.actions-bar h2{
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.actions-bar a{
+  margin: auto 10px auto 10px;
+  vertical-align: 45%;
+}
+
+.actions-bar{
+  margin-bottom: 20px;
+}

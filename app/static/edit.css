@@ -1,0 +1,6 @@
+.checkbox-label{
+  vertical-align: middle;
+}
+label{
+  display: inline !important;
+}

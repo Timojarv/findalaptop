@@ -3,3 +3,4 @@ tmp/
 *.pyc
 app/static/legacy/*
 db_repository/*
+app.db

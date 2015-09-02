@@ -6,6 +6,11 @@
   {% include 'user_edit_form.html' %}
 </div>
 <script>
+$('#user-permissions').val({{ editing.permissions }})
+$(':checkbox').radiocheck();
+$(':checkbox').on('change.radiocheck', function() {
+  $('#submit-btn').toggleClass('btn-danger')
+});
 {% for error in form.password.errors %}
   $('#login-pass').attr('data-title', '{{ error}}')
   $('#login-pass').tooltip('show')

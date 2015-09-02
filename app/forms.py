@@ -28,8 +28,9 @@ class LoginForm(Form):
 
 class UserEditForm(Form):
     user = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    permissions = SelectField('permissions', choices=[('1', 'Standard user'), ('2', 'Moderator'), ('3', 'Admin'), ('4', 'Lead Admin')], validators=[DataRequired()])
+    password = PasswordField('Password')
+    permissions = SelectField('permissions', choices=[('1', 'Standard user'), ('2', 'Moderator'), ('3', 'Admin'), ('4', 'Project Lead')], validators=[DataRequired()])
+    remove = BooleanField('remove', default=False)
 
     def __init__(self, original_username="", *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
@@ -53,12 +54,25 @@ class UserEditForm(Form):
 
         return True
 
-class AddForm(Form):
-    make = StringField('Make') #Laptop brand
+class LaptopEditForm(Form):
+    brand = StringField('Brand') #Laptop brand
     model = StringField('Model') #Model of the laptop
-    specs = StringField('Specs') #Json array of specs in string form
-    performance = IntegerField('Performance', widget=RangeInput()) #All the scores are below in integer form
-    screen = IntegerField('Screen', widget=RangeInput())
-    sound = IntegerField('Sound', widget=RangeInput())
-    mobility = IntegerField('Mobility', widget=RangeInput())
-    battery = IntegerField('Battery', widget=RangeInput())
+    cpuBrand = StringField('Cpu Brand')
+    cpuModel = StringField('Cpu Model')
+    ram = IntegerField('Ram (GB)')
+    gpuBrand = StringField('Gpu Brand')
+    gpuModel = StringField('Gpu Model')
+    ssd = IntegerField('SSD Size')
+    hdd = IntegerField('HDD Size')
+    odd = StringField('Optical Drive')
+    screenW = IntegerField('Screen Width')
+    screenH = IntegerField('Screen height')
+    touch = BooleanField('Touch screen')
+    batteryWh = IntegerField('Battery Wh')
+    batteryTime = IntegerField('Battery Time (h)')
+    width = IntegerField('Width (mm)')
+    length = IntegerField('Length (mm)')
+    thickness = IntegerField('Thickness (mm)')
+    weight = IntegerField('Weight (g)')
+    size = IntegerField('Screen size')
+    price = IntegerField('Price') #Laptop price
