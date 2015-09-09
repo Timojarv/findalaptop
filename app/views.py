@@ -69,34 +69,80 @@ def laptop_view(id):
     laptop = Laptop.query.filter_by(id=id).first()
     spec_list = json.loads(laptop.specs)
     data = ''
-    for spec in spec_list:
-        data += str(spec)+'<br>'
+    for k in spec_list:
+        data += '%s: %s<br>' % (k, spec_list[k])
     return data
+
+@app.route('/admin/laptops/<id>/edit', methods=['GET', 'POST'])
+@login_required
+def laptop_edit(id):
+    form = LaptopEditForm(prefix='laptop-form-')
+    laptop = Laptop.query.filter_by(id=id).first()
+
+    if form.validate_on_submit():
+        spec_list = {
+        'cpuBrand': form.cpuBrand.data,
+        'cpuModel': form.cpuModel.data,
+        'ram': form.ram.data,
+        'gpuBrand': form.gpuBrand.data,
+        'gpuModel': form.gpuModel.data,
+        'ssd': form.ssd.data,
+        'hdd': form.hdd.data,
+        'odd': form.odd.data,
+        'screenW': form.screenW.data,
+        'screenH': form.screenH.data,
+        'touch': form.touch.data,
+        'batteryWh': form.batteryWh.data,
+        'batteryTime': form.batteryTime.data,
+        'width': form.width.data,
+        'length': form.length.data,
+        'thickness': form.thickness.data,
+        'weight': form.weight.data
+        }
+        specs = json.dumps(spec_list)
+        laptop.specs = specs
+        laptop.brand = form.brand.data
+        laptop.model = form.model.data
+        laptop.size = form.size.data
+        laptop.price = form.price.data
+        db.session.add(laptop)
+        db.session.commit()
+        flash('msg_type_success')
+        flash('Laptop updated succesfully!')
+        return redirect(url_for('laptops'))
+    spec_list = json.loads(laptop.specs)
+    spec_list['brand']=laptop.brand
+    spec_list['model']=laptop.model
+    spec_list['size']=laptop.size
+    spec_list['price']=laptop.price
+    print spec_list['touch']
+    return render_template('laptop_edit.html', user=g.user, form=form, spec_list=spec_list,  extra_css=[])
+
 
 @app.route('/admin/laptops/add', methods=['GET', 'POST'])
 @login_required
 def laptop_add():
     form = LaptopEditForm(prefix='laptop-form-')
     if form.validate_on_submit():
-        spec_list = [
-        form.cpuBrand.data,
-        form.cpuModel.data,
-        form.ram.data,
-        form.gpuBrand.data,
-        form.gpuModel.data,
-        form.ssd.data,
-        form.hdd.data,
-        form.odd.data,
-        form.screenW.data,
-        form.screenH.data,
-        form.touch.data,
-        form.batteryWh.data,
-        form.batteryTime.data,
-        form.width.data,
-        form.length.data,
-        form.thickness.data,
-        form.weight.data
-        ]
+        spec_list = {
+        'cpuBrand': form.cpuBrand.data,
+        'cpuModel': form.cpuModel.data,
+        'ram': form.ram.data,
+        'gpuBrand': form.gpuBrand.data,
+        'gpuModel': form.gpuModel.data,
+        'ssd': form.ssd.data,
+        'hdd': form.hdd.data,
+        'odd': form.odd.data,
+        'screenW': form.screenW.data,
+        'screenH': form.screenH.data,
+        'touch': form.touch.data,
+        'batteryWh': form.batteryWh.data,
+        'batteryTime': form.batteryTime.data,
+        'width': form.width.data,
+        'length': form.length.data,
+        'thickness': form.thickness.data,
+        'weight': form.weight.data
+        }
         specs = json.dumps(spec_list)
         laptop = Laptop(brand=form.brand.data, model=form.model.data, specs=specs, size=form.size.data, price=form.price.data)
         db.session.add(laptop)

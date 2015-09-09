@@ -8,12 +8,12 @@ class Laptop(db.Model):
     id = db.Column(db.Integer, primary_key=True) #Unique id for primary key purposes only
     brand = db.Column(db.String(12), index=True) #Laptop brand
     model = db.Column(db.String(24), index=True) #Model of the laptop
-    specs = db.Column(db.String(512)) #Json array of specs in string form
+    specs = db.Column(db.String(512)) #Json dict of specs in string form
     price = db.Column(db.Integer, index=True)#price of the laptop
     size = db.Column(db.Integer, index=True)#screen diagonal
 
     def __repr__(self):
-        return '<%s %s>' % (self.make, self.model)
+        return '<%s %s>' % (self.brand, self.model)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
