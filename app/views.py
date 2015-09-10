@@ -10,7 +10,6 @@ import json
 
 logger = Logger()
 logger.setLevel(logger.info)
-user_level = ['Standard user', 'Moderator', 'Admin', 'Project Lead']
 
 @lm.user_loader
 def load_user(id):
@@ -156,80 +155,6 @@ def laptop_add():
 @login_required
 def stats():
     return render_template('stats.html', user=g.user, extra_css=[])
-
-@app.route('/admin/users')
-@login_required
-def users():
-    users = User.query.all()
-    return render_template('users.html', user=g.user, level=user_level, users=users, extra_css=[])
-
-@app.route('/admin/users/add', methods=['GET', 'POST'])
-@login_required
-def user_add():
-    if g.user.permissions < 3:
-        flash('msg_type_warning')
-        flash('Insufficient permissions!')
-        return redirect(url_for('users'))
-    form = UserEditForm(prefix='add-form-')
-    if form.validate_on_submit():
-        if form.password.data:
-            #Permission checks
-            if form.permissions.data == 4 and g.user.permissions < 4:
-                flash('msg_type_warning')
-                flash('Insufficient permissions!')
-                return redirect(url_for('users'))
-
-            u =  User(username=form.user.data, pwhash=crypt(form.password.data), permissions=form.permissions.data)
-            db.session.add(u)
-            db.session.commit()
-            flash('msg_type_success')
-            flash('User added succesfully!')
-            return redirect(url_for('users'))
-        form.password.errors.append('Please enter a password.')
-    return render_template('user_add.html', user=g.user, form=form, extra_css=[])
-
-@app.route('/admin/users/<username>', methods=['GET', 'POST'])
-@login_required
-def user_edit(username):
-    form = UserEditForm(username, prefix='edit-form-')
-    e_user = User.query.filter_by(username=username).first()
-    if e_user == None:
-        flash('msg_type_warning')
-        flash('User not found!')
-        return redirect(url_for('users'))
-    #Permission checks
-    if e_user.username != g.user.username:
-
-        if e_user.permissions == 4 and g.user.permissions < 4:
-            print 'Tried to edit project lead, %d:%d' % (e_user.permissions, g.user.permissions)
-            flash('msg_type_warning')
-            flash('Insufficient permissions!')
-            return redirect(url_for('users'))
-        if g.user.permissions < 3:
-            print 'Not high enough , %d:%d' % (e_user.permissions, g.user.permissions)
-            flash('msg_type_warning')
-            flash('Insufficient permissions!')
-            return redirect(url_for('users'))
-
-    if form.validate_on_submit():
-        if form.remove.data:
-            db.session.delete(e_user)
-            db.session.commit()
-            flash('msg_type_success')
-            flash('User removed succesfully.')
-            return redirect(url_for('users'))
-        e_user.username=form.user.data
-        if len(form.password.data) > 0:
-            e_user.pwhash=crypt(form.password.data)
-        if g.user.permissions == 4:
-            e_user.permissions=form.permissions.data
-        db.session.add(e_user)
-        db.session.commit()
-        flash('msg_type_success')
-        flash('Your changes have been saved!')
-        return redirect(url_for('users'))
-    form.user.data = e_user.username
-    return render_template('user_edit.html', user=g.user, editing=e_user, form=form, extra_css=['edit'])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
